@@ -1,0 +1,65 @@
+# Cloudflare Workers Configuration for Code Crime Chronicles
+# This configures the Vectorize semantic code search service
+
+name = "code-crime-chronicles"
+main = "workers/index.ts"
+compatibility_date = "2024-01-01"
+
+# Node.js compatibility for certain modules
+compatibility_flags = ["nodejs_compat"]
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Environment variables (set via `wrangler secret put`)
+[vars]
+ENVIRONMENT = "development"
+
+# Vectorize index for code chunk embeddings
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "code-chunks"
+
+# Cloudflare AI binding for embeddings
+[ai]
+binding = "AI"
+
+# D1 Database for storing chunk content (optional)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "code-chunks-db"
+# database_id = "your-database-id"
+
+# KV Namespace for caching (optional)
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+
+# Production environment
+[env.production]
+name = "code-crime-chronicles-prod"
+vars = { ENVIRONMENT = "production" }
+
+# Routes (if deploying to a custom domain)
+# routes = [
+#   { pattern = "api.codecrimechronicles.com/*", zone_name = "codecrimechronicles.com" }
+# ]
+
+# Build configuration
+[build]
+command = "npm run build:worker"
+watch_dir = "workers"
+
+# Triggers (for scheduled tasks)
+# [triggers]
+# crons = ["0 0 * * *"]  # Daily cleanup job
+
+# Limits
+[limits]
+cpu_ms = 50
+
+# Observability
+[observability]
+enabled = true

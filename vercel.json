@@ -1,0 +1,9 @@
+{
+  "crons": [],
+  "functions": {
+    "app/api/**/*": {
+      "maxDuration": 300,
+      "memory": 1024
+    }
+  }
+}

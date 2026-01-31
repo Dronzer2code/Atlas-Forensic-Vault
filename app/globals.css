@@ -1,0 +1,502 @@
+@import "tailwindcss";
+
+/* Custom Cursors */
+* {
+  cursor: url('/pointer-arrow-mini.png'), auto;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], 
+.cursor-pointer, [onclick], summary, label[for], select, 
+input[type="checkbox"], input[type="radio"], [tabindex]:not([tabindex="-1"]),
+.clickable, [data-clickable], [role="link"], [role="menuitem"], [role="tab"],
+[role="option"], [role="switch"], [role="checkbox"], [role="radio"],
+.btn, .button, .link, [class*="btn"], [class*="button"],
+/* Player and media controls */
+[class*="player"], [class*="control"], [class*="tape"], [class*="audio"],
+[class*="play"], [class*="pause"], [class*="stop"], [class*="skip"],
+[class*="rewind"], [class*="forward"], [class*="volume"], [class*="mute"],
+[class*="seek"], [class*="progress"], [class*="slider"], [class*="toggle"],
+video, audio, input[type="range"], [role="slider"],
+svg:not(.no-pointer), [class*="icon"]:not(.no-pointer) {
+  cursor: url('/pointer-hand-mini.png'), pointer !important;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-typewriter: var(--font-special-elite);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-courier: var(--font-courier-prime);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #050505;
+    --foreground: #e7e5e4;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* CRT Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.1)
+  );
+  background-size: 100% 4px;
+  animation: scanline-scroll 10s linear infinite;
+}
+
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* Corkboard Pattern */
+.corkboard-bg {
+  background-color: #4a3728;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233d2b1f' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Manila Folder Card */
+.manila-folder {
+  background-color: #f0e6d2;
+  color: #1f1f1f;
+  position: relative;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.manila-folder::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 40%;
+  height: 15px;
+  background-color: #e6dcc8;
+  border-radius: 4px 4px 0 0;
+  z-index: -1;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.manila-folder:hover {
+  transform: rotate(-1deg) scale(1.02);
+  z-index: 10;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Paperclip */
+.paperclip {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  width: 15px;
+  height: 35px;
+  border: 3px solid #a3a3a3;
+  border-radius: 10px;
+  z-index: 20;
+  transform: rotate(15deg);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Rubber Stamp */
+.mask-stamp {
+  mask-image: url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  mask-mode: alpha;
+  mix-blend-mode: multiply;
+}
+
+/* Red String Connector */
+.red-string {
+  stroke: #991b1b;
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  opacity: 0.6;
+  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
+}
+
+/* Typewriter Cursor */
+.typewriter-cursor::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: #991b1b;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Flashlight Effect */
+.flashlight-container {
+  --x: 50%;
+  --y: 50%;
+}
+
+.flashlight-overlay {
+  background: radial-gradient(
+    circle 300px at var(--x) var(--y),
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+  transition: background 0.1s ease;
+}
+
+/* Crime Scene Tape Animation */
+@keyframes tape-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 56px 0; /* Adjusted for smoother loop */
+  }
+}
+
+.crime-tape {
+  background: repeating-linear-gradient(
+    45deg,
+    #fbbf24,
+    #fbbf24 20px,
+    #000000 20px,
+    #000000 40px
+  );
+  color: #000000;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  animation: tape-move 1s linear infinite;
+  background-size: 56.56px 56.56px; /* 40px * sqrt(2) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.crime-tape span {
+  padding: 0 20px;
+  background: #fbbf24; /* Match the yellow */
+}
+
+.crime-tape-container {
+  width: 100%;
+  height: 48px;
+  z-index: 50;
+}
+
+/* Pulse glow effect */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Flickering text */
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 3s ease-in-out infinite;
+}
+
+/* Noir vignette effect */
+.noir-vignette {
+  position: relative;
+}
+
+.noir-vignette::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* Custom Scrollbar - Mechanical Rail Style */
+/* The track (The recessed metal groove) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a; /* Deep charcoal */
+  border-left: 1px solid #1a1a1a;
+}
+
+/* The thumb (The magnetic tape head) */
+::-webkit-scrollbar-thumb {
+  background: #7f1d1d; /* Darker red (red-900) */
+  border-radius: 0px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #991b1b; /* Slightly lighter red (red-800) when active */
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* For Firefox */
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+}
+
+/* Text Selection Highlight */
+::selection {
+  background-color: #7f1d1d !important; /* Dark red */
+  color: #ffffff !important;
+}
+
+::-moz-selection {
+  background-color: #7f1d1d !important; /* Dark red */
+  color: #ffffff !important;
+}
+
+*::selection {
+  background-color: #7f1d1d !important;
+  color: #ffffff !important;
+}
+
+*::-moz-selection {
+  background-color: #7f1d1d !important;
+  color: #ffffff !important;
+}
+
+/* Industrial Rail Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: #0a0a0a;
+  border-left: 1px solid #1f1f1f;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: #0a0a0a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #262626;
+  border: 1px solid #000;
+  border-radius: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    #333 2px,
+    #333 4px
+  );
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Mobile Flashlight - Smaller radius on touch devices */
+@media (max-width: 768px) {
+  .flashlight-overlay {
+    background: radial-gradient(
+      circle 150px at var(--x) var(--y),
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+  
+  /* Reduce scanline intensity on mobile */
+  .scanlines {
+    background-size: 100% 3px;
+    opacity: 0.8;
+  }
+  
+  /* Reduce noise overlay intensity */
+  .noise-overlay {
+    opacity: 0.03;
+  }
+  
+  /* Manila folder - disable hover effects on touch */
+  .manila-folder:hover {
+    transform: none;
+  }
+  
+  /* Smaller paperclip on mobile */
+  .paperclip {
+    width: 12px;
+    height: 28px;
+    top: -12px;
+    right: 15px;
+  }
+  
+  /* Hide corner brackets on small screens */
+  .bracket-corner {
+    display: none;
+  }
+  
+  /* Adjust crime tape height */
+  .crime-tape-container {
+    height: 36px;
+  }
+  
+  /* Better touch scrolling */
+  .scrollbar-hide {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .flashlight-overlay {
+    background: radial-gradient(
+      circle 100px at var(--x) var(--y),
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.35) 50%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+  
+  /* Even lighter effects for performance */
+  .scanlines {
+    background-size: 100% 2px;
+    opacity: 0.6;
+  }
+  
+  .noise-overlay {
+    opacity: 0.02;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .flashlight-overlay {
+    background: radial-gradient(
+      circle 200px at var(--x) var(--y),
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable flashlight on touch-only devices for better UX */
+  .flashlight-overlay {
+    display: none;
+  }
+  
+  /* Larger tap targets */
+  button, 
+  a, 
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover transforms */
+  .manila-folder:hover {
+    transform: none;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+}
+
+/* Print styles - hide effects when printing */
+@media print {
+  .flashlight-overlay,
+  .scanlines,
+  .noise-overlay,
+  .print-hidden {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}

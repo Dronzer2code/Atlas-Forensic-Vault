@@ -2,8 +2,8 @@ import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 export default withAuth(
-  function middleware() {
-    // Add custom middleware logic here if needed
+  function proxy() {
+    // Add custom proxy logic here if needed
     return NextResponse.next();
   },
   {
@@ -31,7 +31,13 @@ export default withAuth(
           return true;
         }
 
-        // Require authentication for protected routes
+        // API routes should handle their own auth and return 401
+        // Don't redirect API routes - let them handle auth themselves
+        if (pathname.startsWith("/api/")) {
+          return true;
+        }
+
+        // Require authentication for protected page routes only
         return !!token;
       },
     },

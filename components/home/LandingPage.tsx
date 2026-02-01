@@ -10,6 +10,7 @@ import { NarrativeStyle, AnalysisStatus } from '@/lib/types';
 import DevelopingEvidence from '@/components/ui/DevelopingEvidence';
 import { ClearanceStatusPopup } from '@/components/ui/ClearanceStatusPopup';
 import { RedNoticeOverlay } from '@/components/ui/RedNoticeOverlay';
+import { AuthButton } from '@/components/ui/AuthButton';
 import { useAudio } from '@/components/layout/AudioProvider';
 import { InvestigationStatus } from '@/lib/auth/investigations';
 
@@ -475,13 +476,13 @@ export default function LandingPage({ initialPodcasts, initialStats }: LandingPa
                 </span>
               </button>
             ) : authStatus === 'unauthenticated' ? (
-              <a
-                href="/login"
-                className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900/50 border border-zinc-700 hover:border-amber-700/50 transition-colors"
+              <AuthButton
+                variant="primary"
+                onClick={() => router.push('/login')}
+                className="!px-6 !py-2"
               >
-                <User className="w-4 h-4 text-amber-500" />
-                <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Login</span>
-              </a>
+                Access
+              </AuthButton>
             ) : null}
           </div>
 

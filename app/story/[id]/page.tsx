@@ -696,11 +696,11 @@ export default function StoryEditorPage() {
         
         <div className="mb-6 md:mb-8">
             <button
-                onClick={() => router.push(`/case/${podcastId}`)}
+                onClick={() => router.push(`/podcast/${podcastId}`)}
                 className="flex items-center gap-2 text-gray-500 hover:text-red-500 transition font-bold uppercase tracking-widest text-xs md:text-sm group"
             >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                Back to Case File
+                Back to Evidence Board
             </button>
         </div>
 

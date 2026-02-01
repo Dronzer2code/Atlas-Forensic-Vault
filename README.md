@@ -550,7 +550,7 @@ http://localhost:3000
 
 </div>
 
-<!--
+<--
 # 👥 Team LowEndCorp. Members :
 
 <div align="center">
@@ -564,22 +564,6 @@ http://localhost:3000
 
 ---
 -->
-
-# 👥 Contributors
-
-<div align="center">
-
-| Name | Domain |
-|:-----|:-------|
-| [Subarna Maity]() | App Dev & Web Dev |
-| [Soumyadeep Dey]() | Full Stack Web Dev |
-| [Saikat Das]() | Security, DevSec Ops |
-| [Sourish Panda]() | Advance Data Structure & Algorithm |
-
-</div>
-
----
-
 <div align="center">
   
 _**"🕵️ Case Closed."**_ <br/>
